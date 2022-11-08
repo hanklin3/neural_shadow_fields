@@ -1,5 +1,5 @@
 import torch
-# from torchsearchsorted import searchsorted
+from torchsearchsorted import searchsorted
 import models.shadow_mapping_utils as shadow_mapping_utils
 import models.efficient_shadow_mapping as eff_sm
 from models.camera import Camera
@@ -37,8 +37,8 @@ def sample_pdf(rays, weights, N_importance, det=False, eps=1e-5):
                                                                # padded to 0~1 inclusive
                                                                
     u = torch.rand(N_rays, N_importance, device=rays.device) # (N_rays, N_samples)
-    # inds = searchsorted(cdf, u, side='right').float() - 1.0 # (N_rays, N_samples)
-    inds = torch.searchsorted(cdf, u, right=True).float() - 1.0  # (B, Kf)
+    inds = searchsorted(cdf, u, side='right').float() - 1.0 # (N_rays, N_samples)
+    # inds = torch.searchsorted(cdf, u, right=True).float() - 1.0  # (B, Kf)
     inds = torch.clamp_min(inds, 0.0)
 
     z_steps = (inds + torch.rand_like(inds)) / N_samples_  # (B, Kf)

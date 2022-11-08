@@ -8,7 +8,7 @@ source activate nerf_pl
 
 # Run the script
 python train_efficient_sm.py --dataset_name efficient_sm\
- --root_dir /home/gridsan/ktiwary/datasets/variable_cam/chair_res800_var_cam_v1_sigma150/\
+ --root_dir ../datasets/variable_cam/chair_res800_var_cam_v1_sigma150/\
  --N_importance 128 --N_samples 64\
  --num_gpus 0 --img_wh 64 64 --noise_std 0 --num_epochs 300 --optimizer adam --lr 0.00001\
  --exp_name CHAIR_sigma150_var_cam_run1 --num_sanity_val_steps 1\

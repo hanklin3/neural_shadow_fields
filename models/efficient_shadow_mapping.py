@@ -1,7 +1,7 @@
 import torch 
 from numpy import meshgrid
 ###
-# NOTE: (ktiwary) Currently only accepts Square Images! Will fix this at some point. 
+# NOTE: Currently only accepts Square Images! Will fix this at some point. 
 # use_numpy_meshgrid: Since older versions of torch don't have indexing as an arg for torch..
 ###
 
