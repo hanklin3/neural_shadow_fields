@@ -38,9 +38,9 @@ class NeRFSystem(LightningModule):
     def __init__(self, hparams):
         super(NeRFSystem, self).__init__()
         self.hparams = hparams
-
+        
         self.loss = loss_dict[hparams.loss_type]()
-        self.opacity_loss = loss_dict['opacity']()
+        # self.opacity_loss = loss_dict['opacity']()
 
         self.embedding_xyz = Embedding(3, 10) # 10 is the default number
         self.embedding_dir = Embedding(3, 4) # 4 is the default number
@@ -188,11 +188,11 @@ class NeRFSystem(LightningModule):
         sm_loss = self.loss(cam_results, rgbs)
         log['train/loss'] = sm_loss 
         # cam_opacity_loss = 0.0 # 1.0 * self.opacity_loss(cam_results, rgbs)
-        light_opacity_loss = 1.0 * self.opacity_loss(self.curr_light_results, rgbs)
+        # light_opacity_loss = 1.0 * self.opacity_loss(self.curr_light_results, rgbs)
         # light_opacity_loss = torch.tensor(0.0).to(sm_loss.device)
-        op_loss = 1.0 * light_opacity_loss
+        # op_loss = 1.0 * light_opacity_loss
         # op_loss = 2.0 * (cam_opacity_loss + light_opacity_loss)
-        log['train/train_opactiy'] = op_loss
+        # log['train/train_opactiy'] = op_loss
         typ = 'fine' if 'rgb_fine' in cam_results else 'coarse'
 
         with torch.no_grad():
@@ -231,10 +231,10 @@ class NeRFSystem(LightningModule):
                         shadow_method=self.hparams.shadow_method)
 
         # cam_opacity_loss = 2.0 * self.opacity_loss(cam_results, rgbs)
-        op_loss = 1.0 * self.opacity_loss(light_results, rgbs)
+        # op_loss = 1.0 * self.opacity_loss(light_results, rgbs)
         # op_loss = cam_opacity_loss + light_opacity_loss
         # op_loss = torch.tensor(0.0).to(rgbs.device)
-
+        op_loss = 0
         log = {'val_loss': self.loss(cam_results, rgbs), 'val_op_loss': op_loss}
         typ = 'fine' if 'rgb_fine' in cam_results else 'coarse'
     

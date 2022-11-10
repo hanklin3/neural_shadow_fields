@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -n 4 --gres=gpu:volta:1
+#SBATCH -n 4 --gres=gpu:volta:1 -o 64x64Bunny_s50.log-%j
 
 # Loading the required module
 source /etc/profile
